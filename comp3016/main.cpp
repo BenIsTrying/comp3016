@@ -6,10 +6,10 @@
 
 using namespace std;
 void map1();
-void map2();
-void map3();
-void map4();
-void map5();
+void map(string mapname);
+void gameLoop();
+int mapLength = 0;
+
 
 
 int main() {
@@ -23,7 +23,7 @@ int main() {
         << "I = input where the power comes from\n"
         << "O = output where the power needs to go\n\n" << endl;
 
-        Sleep(10000);
+        //Sleep(10000);
 
     int choice = 0;
     cout << "Please Choose a map: \n1\t2\t3\t4\t5\n\n";
@@ -31,19 +31,20 @@ int main() {
 
     switch (choice) {
     case 1:
+        mapLength = 6;
         map1();
         break;
     case 2:
-        map2();
+        map("map02.txt");
         break;
     case 3:
-        map3();
+        map("map03.txt");
         break;
     case 4:
-        map4();
+        map("map04.txt");
         break;
     case 5:
-        map5();
+        map("map05.txt");
         break;
 
     default:
@@ -51,7 +52,7 @@ int main() {
         cout << "Invalid map number - Please enter a number listed\n\n";
         main();
     }
-
+    gameLoop();
 }
 void map1() {
 
@@ -66,27 +67,10 @@ void map1() {
     };
 
 
-    string myText;
-    string temp;
-    int num = 0;
     int x = 0;
     int y = 0;
 
-    /*ifstream MyReadFile("map01.txt");
-
-    for (int i =0; i < 6; i++){
-
-        getline(MyReadFile, myText);
-        
-        board[0][num] = myText.at(0);
-        board[1][num] = myText.at(1);
-        board[2][num] = myText.at(2);
-        board[3][num] = myText.at(3);
-        board[4][num] = myText.at(4);
-        num++;
-
-        cout << "\n\t\t " << myText[0];
-    }  */
+    
 
     for (int j = 0; j < 30; j++) {
 
@@ -102,29 +86,36 @@ void map1() {
         x++;
     }
 
-    //MyReadFile.close();
+    //
 
 
     
 
 }
-void map2() {
+void map(string mapname) {
 
-    cout << "map 2";
-
-}
-void map3() {
+    cout << "Loading - " << mapname << "...\n" << endl;
     
-    cout << "map 3";
+    string myText;
+    string temp;
+    int num = 0;
+    
+    
+    ifstream MyReadFile(mapname);
 
+    for (int i =0; i < mapLength; i++){
+
+        getline(MyReadFile, myText);
+
+        cout <<  myText;
+        cout << "\n";
+    }  
+
+    MyReadFile.close();
 }
-void map4() {
 
-    cout << "map 4";
+void gameLoop() {
 
-}
-void map5() {
-
-    cout << "map 5";
+    cout << "time to play";
 
 }
