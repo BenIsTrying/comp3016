@@ -5,11 +5,11 @@
 #include <conio.h>
 
 using namespace std;
-void map1();
+//void map1();
 void map(string mapname);
 void gameLoop();
 int mapLength = 0;
-
+string board[100][100];
 
 
 int main() {
@@ -32,7 +32,7 @@ int main() {
     switch (choice) {
     case 1:
         mapLength = 6;
-        map1();
+        map("map01.txt");
         break;
     case 2:
         map("map02.txt");
@@ -54,6 +54,7 @@ int main() {
     }
     gameLoop();
 }
+/*
 void map1() {
 
     cout << "map 1" << endl;
@@ -67,8 +68,7 @@ void map1() {
     };
 
 
-    int x = 0;
-    int y = 0;
+    
 
     
 
@@ -86,36 +86,52 @@ void map1() {
         x++;
     }
 
-    //
 
 
     
 
-}
+}*/
 void map(string mapname) {
 
     cout << "Loading - " << mapname << "...\n" << endl;
     
     string myText;
     string temp;
-    int num = 0;
+    
+    int x = 0;
+    int y = 0;
     
     
     ifstream MyReadFile(mapname);
 
-    for (int i =0; i < mapLength; i++){
+    for (int i =0; i < 13; i++){ //13 as it is currently the longest map in the y axis
+       
+        int num = 0;
 
         getline(MyReadFile, myText);
+        //cout <<  myText;
 
-        cout <<  myText;
+        temp = myText;
+        //cout << "\n" << temp[0] << temp.length() << "\n";
+
+        while (num < temp.length()) {
+            board[i][num] = temp[num];
+            cout << board[i][num];
+            num++;
+        }
         cout << "\n";
     }  
 
     MyReadFile.close();
+
+
+    
 }
 
 void gameLoop() {
 
     cout << "time to play";
+
+   
 
 }
