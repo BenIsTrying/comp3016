@@ -5,12 +5,17 @@
 #include <conio.h>
 
 using namespace std;
-//void map1();
+
 void map(string mapname);
 void gameLoop();
+void map();
+
 int mapLength = 0;
 string board[100][100];
-
+int startingX = 0;
+int startingY = 0;
+string oldSpace = " ";
+bool active = true;
 
 int main() {
 
@@ -92,26 +97,67 @@ void map(string mapname) {
     
 }
 
-void gameLoop() {
-
-    system("cls");
-    
-    cout << "\ntime to play" << "\n\n";
+void map() {
 
     for (int i = 0; i < 13; i++) { //13 as it is currently the longest map in the y axis
 
         int num = 0;
 
         while (num < 40) {
+            if (board[i][num] == "I") {
+                startingX = num;
+                startingY = i;
+            }
+
             cout << board[i][num] << " ";
             num++;
         }
         cout << "\n";
     }
     
+    
+}
 
-    
-    
-    
+void gameLoop() {
+    while (active != false) {
+
+        system("cls");
+        map();
+        cout << "\ntime to play" << "\n\n";
+
+        cout << "\n" << startingX << startingY;
+        if (board[startingY][startingX] != "@") {
+            oldSpace = board[startingY][startingX];
+        }
+        board[startingY][startingX] = "@";
+
+        cout << "\n\n\n\nCurrent sqaur - " << oldSpace << "\n\n\n\n\n\n";
+
+        char move = ' ';
+        move = _getch();
+
+        move = tolower(move);
+        if (move == 'w' && board[startingY + 1][startingX] != "#") {
+            board[startingY][startingX] = oldSpace;
+            startingY++;
+            board[startingY][startingX] = "@";
+        }
+        else if (move == 'a' && board[startingY][startingX - 1] != "#") {
+            board[startingY][startingX] = oldSpace;
+            startingX--;
+            board[startingY][startingX] = "@";
+        }
+        else if (move == 's' && board[startingY - 1][startingX] != "#") {
+            board[startingY][startingX] = oldSpace;
+            startingY--;
+            board[startingY][startingX] = "@";
+        }
+        else if (move == 'd' && board[startingY][startingX + 1] != "#") {
+            board[startingY][startingX] = oldSpace;
+            startingX++;
+            board[startingY][startingX] = "@";
+        }
+
+    }
 
 }
