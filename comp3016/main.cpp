@@ -57,6 +57,7 @@ int main() {
         cout << "Invalid map number - Please enter a number listed\n\n";
         main();
     }
+    map();
     gameLoop();
 }
 
@@ -120,10 +121,10 @@ void map() {
 
 void gameLoop() {
 
-    map();
-
     int currentX = startingX;
     int currentY = startingY;
+    
+    oldSpace = board[currentY][currentX];
 
     while (active != false) {
 
@@ -131,38 +132,48 @@ void gameLoop() {
         map();
         cout << "\ntime to play" << "\n\n";
 
-        cout << "\nPos: " << currentX << currentY;
+        cout << "\nPos: " << currentX << " " << currentY;
         if (board[currentY][currentX] != "@") {
             oldSpace = board[currentY][currentX];
         }
         board[currentY][currentX] = "@";
 
-        cout << "\n\n\n\nCurrent sqaur - " << oldSpace << "\n\n\n\n\n\n";
+        cout << "\n\n\n\nCurrent sqaur -> " << oldSpace << "\n\n\n\n\n\n";
 
-        char move = ' ';
+        char move;
         move = _getch();
 
         move = tolower(move);
-        if (move == 'w' && board[currentY - 1][currentX] != "#") {
+        if (move == '\n' && board[currentY][currentX] == "-") {
             board[currentY][currentX] = oldSpace;
-            currentY--;
+            oldSpace = "c";
+            board[currentY][currentX] = "@";
+        }
+        else if (move == 'w' && board[currentY - 1][currentX] != "#") {
+            board[currentY][currentX] = oldSpace;
+            currentY--; 
+            oldSpace = board[currentY][currentX];
             board[currentY][currentX] = "@";
         }
         else if (move == 'a' && board[currentY][currentX - 1] != "#") {
             board[currentY][currentX] = oldSpace;
             currentX--;
+            oldSpace = board[currentY][currentX];
             board[currentY][currentX] = "@";
         }
         else if (move == 's' && board[currentY + 1][currentX] != "#") {
             board[currentY][currentX] = oldSpace;
             currentY++;
+            oldSpace = board[currentY][currentX];
             board[currentY][currentX] = "@";
         }
         else if (move == 'd' && board[currentY][currentX + 1] != "#") {
             board[currentY][currentX] = oldSpace;
             currentX++;
+            oldSpace = board[currentY][currentX];
             board[currentY][currentX] = "@";
         }
+        
 
     }
 
