@@ -119,17 +119,23 @@ void map() {
 }
 
 void gameLoop() {
+
+    map();
+
+    int currentX = startingX;
+    int currentY = startingY;
+
     while (active != false) {
 
         system("cls");
         map();
         cout << "\ntime to play" << "\n\n";
 
-        cout << "\n" << startingX << startingY;
-        if (board[startingY][startingX] != "@") {
-            oldSpace = board[startingY][startingX];
+        cout << "\nPos: " << currentX << currentY;
+        if (board[currentY][currentX] != "@") {
+            oldSpace = board[currentY][currentX];
         }
-        board[startingY][startingX] = "@";
+        board[currentY][currentX] = "@";
 
         cout << "\n\n\n\nCurrent sqaur - " << oldSpace << "\n\n\n\n\n\n";
 
@@ -137,25 +143,25 @@ void gameLoop() {
         move = _getch();
 
         move = tolower(move);
-        if (move == 'w' && board[startingY + 1][startingX] != "#") {
-            board[startingY][startingX] = oldSpace;
-            startingY++;
-            board[startingY][startingX] = "@";
+        if (move == 'w' && board[currentY - 1][currentX] != "#") {
+            board[currentY][currentX] = oldSpace;
+            currentY--;
+            board[currentY][currentX] = "@";
         }
-        else if (move == 'a' && board[startingY][startingX - 1] != "#") {
-            board[startingY][startingX] = oldSpace;
-            startingX--;
-            board[startingY][startingX] = "@";
+        else if (move == 'a' && board[currentY][currentX - 1] != "#") {
+            board[currentY][currentX] = oldSpace;
+            currentX--;
+            board[currentY][currentX] = "@";
         }
-        else if (move == 's' && board[startingY - 1][startingX] != "#") {
-            board[startingY][startingX] = oldSpace;
-            startingY--;
-            board[startingY][startingX] = "@";
+        else if (move == 's' && board[currentY + 1][currentX] != "#") {
+            board[currentY][currentX] = oldSpace;
+            currentY++;
+            board[currentY][currentX] = "@";
         }
-        else if (move == 'd' && board[startingY][startingX + 1] != "#") {
-            board[startingY][startingX] = oldSpace;
-            startingX++;
-            board[startingY][startingX] = "@";
+        else if (move == 'd' && board[currentY][currentX + 1] != "#") {
+            board[currentY][currentX] = oldSpace;
+            currentX++;
+            board[currentY][currentX] = "@";
         }
 
     }
