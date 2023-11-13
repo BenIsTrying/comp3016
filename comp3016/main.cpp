@@ -54,43 +54,7 @@ int main() {
     }
     gameLoop();
 }
-/*
-void map1() {
 
-    cout << "map 1" << endl;
-    string board[6][5] = {
-    { " ", " ", "#", "#", "#" },
-    { " ", " ", "#", "O", "#" },
-    { " ", " ", "#", "-", "#" },
-    { "#", "#", "#", "-", "#" },
-    { "#", "I", "-", "-", "#" },
-    { "#", "#", "#", "#", "#" } 
-    };
-
-
-    
-
-    
-
-    for (int j = 0; j < 30; j++) {
-
-        if (x >= 5) {
-            cout << "\n";
-            x = 0;
-            y++;
-        }
-        else if (x >= 5 && y >= 6) {
-            break;
-        }
-        cout << board[y][x] << " ";
-        x++;
-    }
-
-
-
-    
-
-}*/
 void map(string mapname) {
 
     cout << "Loading - " << mapname << "...\n" << endl;
@@ -130,8 +94,24 @@ void map(string mapname) {
 
 void gameLoop() {
 
-    cout << "time to play";
+    system("cls");
+    
+    cout << "\ntime to play" << "\n\n";
 
-   
+    for (int i = 0; i < 13; i++) { //13 as it is currently the longest map in the y axis
+
+        int num = 0;
+
+        while (num < 40) {
+            cout << board[i][num] << " ";
+            num++;
+        }
+        cout << "\n";
+    }
+    
+
+    
+    
+    
 
 }
