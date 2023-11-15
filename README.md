@@ -71,6 +71,39 @@ int choice = 0;
     }
 ```
 
+This code is getting and allocating the map to the array, it trys to allocate and if any errors occure then it trys reloading the function.
+
+```
+try {
+        ifstream MyReadFile(mapname);
+
+        for (int i = 0; i < 13; i++) { //13 as it is currently the longest map in the y axis
+
+            int num = 0;
+
+            getline(MyReadFile, myText);
+            //cout <<  myText;
+
+            temp = myText;
+            //cout << "\n" << temp[0] << temp.length() << "\n";
+
+            while (num < temp.length()) {
+                board[i][num] = temp[num];
+                cout << board[i][num];
+                num++;
+            }
+            cout << "\n";
+        }
+
+        MyReadFile.close();
+
+    }
+    catch (...) {
+        cout << "error";
+        map(mapname);
+    }
+```
+
 
 
 ## Further details that help us to understand how your prototype works. 
