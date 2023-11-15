@@ -22,6 +22,9 @@ The users task is to get from **I** to **O** with the least amount of **C** cabl
 ### Basic UML of board/gerneral play:
 ![comp3016 image uml01](https://github.com/BenIsTrying/comp3016/assets/91667148/3a811a22-7971-4c42-afda-6771a55e97e8)
 
+### Leader board UML:
+
+![comp3016 leader boarduml](https://github.com/BenIsTrying/comp3016/assets/91667148/f321c4b5-9fa8-4bb1-9eef-dd13fdc4dbd0)
 
 
 ## Exception handling and test cases
