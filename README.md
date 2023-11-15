@@ -158,6 +158,9 @@ while (won != 50) {
 
 This is a C++ command line game for comp 30016 CW1, in this game the user will connect a start and end point like a cicuit, the soultion to each map/board will be the most efficent in terms of spaces.
 
+https://youtu.be/2vyaYTiw5bs
+
+
 ## link to the game git repository
 
 https://github.com/BenIsTrying/comp3016.git
