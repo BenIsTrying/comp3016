@@ -15,7 +15,6 @@ void leaderBoard();
 
 int mapLength = 0;
 string board[100][100];
-string solvedBoard[100][100];
 int startingX = 0;
 int startingY = 0;
 string oldSpace = " ";
