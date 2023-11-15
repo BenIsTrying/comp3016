@@ -43,6 +43,42 @@ The way this project works is by reading exsternal text files that hold the data
 ```
 This code above shows how the user can press the **'W'** key to move upwards on the board, once pressed it will minus from the Y value to move up a column (it has to be minus as Y value starts at zero when printing the top of the map). 
 
+### checking if the user has won
+
+Original the plan to check if the user has solved the map was to have another array of the solution then compare it to the current board, this would work but only in the most basic sense as it would mean the user could not exsperiment and has to follow one set solution, this would also make the leader board invalid as everyone who finished would alwasy have the same score.
+To fix this i made a function that will start at the end possition and check for adjacent **'c'** tiles then follow them till they find the start postion, if it can reach if by using the path of **'c'** then th euser has solved the puzzel, if not it wait for the user to finish the puzzel and is activaated again when they land on the **'O'** sqaur.
+
+```
+while (won != 50) {
+        if (board[checkY][checkX + 1] == "I" || board[checkY][checkX - 1] == "I" || board[checkY + 1][checkX] == "I" || board[checkY - 1][checkX] == "I") {
+            active = true;
+            won = true;
+            leaderBoard();
+        }
+        else if (board[checkY][checkX + 1] == "c" && oldPos != "right") {
+            checkX++;
+            cout << "x++";
+            oldPos = "right";
+        }
+        else if (board[checkY][checkX - 1] == "c" && oldPos != "left") {
+            checkX--;
+            cout << "x--";
+            oldPos = "left";
+        }
+        else if (board[checkY - 1][checkX] == "c" && oldPos != "up") {
+            checkY--;
+            cout << "y--";
+            oldPos = "up";
+        }
+        else if (board[checkY + 1][checkX] == "c" && oldPos != "down") {
+            checkY++;
+            cout << "y++";
+            oldPos = "down";
+        }
+        won++;
+    }
+```
+
 ## A link to the Video (unlisted YouTube) 
 
 ## link to the game git repository
