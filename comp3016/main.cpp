@@ -24,7 +24,7 @@ int cableUsed = 0;
 
 int main() {
 
-    cout << "This is a circuit/mase game, you must move your icon (@) across the map using W A S D. And J for changing the empty spaces to a cable\n"
+    cout << "This is a circuit/mase game, you must move your icon (@) across the map using 'W' 'A' 'S' 'D'. And 'J' for changing the empty spaces to a cable\n"
         << "You must connect the I (input/start) to the O (output/end) by changing the empty spaces (shown as dashes -) to 'c' (for cable)\n"
         << "\nTo Win you must be on the 'O' sqaur\n"
         << "\n\nKey:\n"
@@ -39,36 +39,42 @@ int main() {
     int choice = 0;
     cout << "Please Choose a map: \n1\t2\t3\t4\t5\n\n";
     cin >> choice;
+    try {
+        switch (choice) {
+        case 1:
+            //mapSolutions("map01_solved");
+            map("map01.txt");
+            break;
+        case 2:
+            //mapSolutions("map02_solved");
+            map("map02.txt");
+            break;
+        case 3:
+            //mapSolutions("map03_solved");
+            map("map03.txt");
+            break;
+        case 4:
+            //mapSolutions("map04_solved");
+            map("map04.txt");
+            break;
+        case 5:
+            //mapSolutions("map05_solved");
+            map("map05.txt");
+            break;
 
-    switch (choice) {
-    case 1:
-        //mapSolutions("map01_solved");
-        map("map01.txt");
-        break;
-    case 2:
-        //mapSolutions("map02_solved");
-        map("map02.txt");
-        break;
-    case 3:
-        //mapSolutions("map03_solved");
-        map("map03.txt");
-        break;
-    case 4:
-        //mapSolutions("map04_solved");
-        map("map04.txt");
-        break;
-    case 5:
-        //mapSolutions("map05_solved");
-        map("map05.txt");
-        break;
-
-    default:
+        default:
+            throw (choice);
+        }
+        map();
+        gameLoop();
+    }
+    catch (int choice) {
         system("cls");
         cout << "Invalid map number - Please enter a number listed\n\n";
         main();
+
     }
-    map();
-    gameLoop();
+
 }
 
 void map(string mapname) {
@@ -81,31 +87,34 @@ void map(string mapname) {
     int x = 0;
     int y = 0;
     
-    
-    ifstream MyReadFile(mapname);
+    try {
+        ifstream MyReadFile(mapname);
 
-    for (int i =0; i < 13; i++){ //13 as it is currently the longest map in the y axis
-       
-        int num = 0;
+        for (int i = 0; i < 13; i++) { //13 as it is currently the longest map in the y axis
 
-        getline(MyReadFile, myText);
-        //cout <<  myText;
+            int num = 0;
 
-        temp = myText;
-        //cout << "\n" << temp[0] << temp.length() << "\n";
+            getline(MyReadFile, myText);
+            //cout <<  myText;
 
-        while (num < temp.length()) {
-            board[i][num] = temp[num];
-            cout << board[i][num];
-            num++;
+            temp = myText;
+            //cout << "\n" << temp[0] << temp.length() << "\n";
+
+            while (num < temp.length()) {
+                board[i][num] = temp[num];
+                cout << board[i][num];
+                num++;
+            }
+            cout << "\n";
         }
-        cout << "\n";
-    }  
 
-    MyReadFile.close();
+        MyReadFile.close();
 
-
-    
+    }
+    catch (...) {
+        cout << "error";
+        map(mapname);
+    }
 }
 /*
 void mapSolutions(string solution) {
@@ -236,11 +245,12 @@ void leaderBoard() {
     
     cout << "\n\nplay again?\t";
     cin >> input;
-    if (input == "yes") {
-        main();
+    if (input != "yes") {
+        cout << "goodbye";
+        return;
     }
     else {
-        cout << "goodbye";
+        main();
     }
 
 }
@@ -271,7 +281,7 @@ void gameLoop() {
         move = _getch();
 
         move = tolower(move);
-        if ((move == 'j' && board[currentY][currentX] != "I") && (move == 'j' && board[currentY][currentX] != "O") && (move == 'j' && board[currentY][currentX] != "#")) {
+        if ((move == 'j') && (oldSpace != "I") && (oldSpace != "O") && (oldSpace != "#")) {
             board[currentY][currentX] = oldSpace;
             oldSpace = "c";
             board[currentY][currentX] = "@";
