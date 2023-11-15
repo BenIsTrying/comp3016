@@ -15,8 +15,11 @@ The user starts on the **I** tile (input) and must connect this starting postion
 Once the user has finished connecting these two points they must stand on the **O** for the board to be scanned and checked to see if they have won.
 The users task is to get from **I** to **O** with the least amount of **C** cables used.
 
+![comp3016 code terminal](https://github.com/BenIsTrying/comp3016/assets/91667148/8c348b57-0f82-40bb-8e79-5ea2072fe777)
  
 ## UML design diagram 
+
+
 
 ## Exception handling and test cases
 
