@@ -29,6 +29,50 @@ The users task is to get from **I** to **O** with the least amount of **C** cabl
 
 ## Exception handling and test cases
 
+1. When begining the game the user is asked to select the map they wish to play, this is in a try catch as if the user does not give a real map number the system cannot run, so the code will catch the error and tell the user to select one the the listed numbers.
+```
+int choice = 0;
+    cout << "Please Choose a map: \n1\t2\t3\t4\t5\n\n";
+    cin >> choice;
+    try {
+        switch (choice) {
+        case 1:
+            //mapSolutions("map01_solved");
+            map("map01.txt");
+            break;
+        case 2:
+            //mapSolutions("map02_solved");
+            map("map02.txt");
+            break;
+        case 3:
+            //mapSolutions("map03_solved");
+            map("map03.txt");
+            break;
+        case 4:
+            //mapSolutions("map04_solved");
+            map("map04.txt");
+            break;
+        case 5:
+            //mapSolutions("map05_solved");
+            map("map05.txt");
+            break;
+
+        default:
+            throw (choice);
+        }
+        map();
+        gameLoop();
+    }
+    catch (int choice) {
+        system("cls");
+        cout << "Invalid map number - Please enter a number listed\n\n";
+        main();
+
+    }
+```
+
+
+
 ## Further details that help us to understand how your prototype works. 
 
 The way this project works is by reading exsternal text files that hold the data for the maps, this is then read and stored into an 2D array called board (this array size is 100 by 100) this is how the game is worked and used, the user controlls an icon **'@'** which starts by takin gthe postion of **I** on the board and manitpulating the **X** and **Y** values to move across the board.
