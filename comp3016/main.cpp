@@ -8,7 +8,6 @@
 using namespace std;
 
 void map(string mapname);
-//void mapSolutions(string solution);
 void gameLoop();
 void map();
 void checkWin();
@@ -42,23 +41,18 @@ int main() {
     try {
         switch (choice) {
         case 1:
-            //mapSolutions("map01_solved");
             map("map01.txt");
             break;
         case 2:
-            //mapSolutions("map02_solved");
             map("map02.txt");
             break;
         case 3:
-            //mapSolutions("map03_solved");
             map("map03.txt");
             break;
         case 4:
-            //mapSolutions("map04_solved");
             map("map04.txt");
             break;
         case 5:
-            //mapSolutions("map05_solved");
             map("map05.txt");
             break;
 
@@ -116,41 +110,7 @@ void map(string mapname) {
         map(mapname);
     }
 }
-/*
-void mapSolutions(string solution) {
 
-    string myText;
-    string temp;
-
-    int x = 0;
-    int y = 0;
-
-    ifstream MyReadFile(solution);
-
-    for (int i = 0; i < 13; i++) { //13 as it is currently the longest map in the y axis
-
-        int num = 0;
-
-        getline(MyReadFile, myText);
-        //cout <<  myText;
-
-        temp = myText;
-        //cout << "\n" << temp[0] << temp.length() << "\n";
-
-        while (num < temp.length()) {
-            solvedBoard[i][num] = temp[num];
-            cout << solvedBoard[i][num];
-            num++;
-        }
-        cout << "\n";
-    }
-
-    MyReadFile.close();
-
-
-
-}
-*/
 void map() {
 
     for (int i = 0; i < 13; i++) { //13 as it is currently the longest map in the y axis
