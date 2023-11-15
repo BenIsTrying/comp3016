@@ -3,11 +3,12 @@
 #include <string>
 #include<windows.h>
 #include <conio.h>
+#include <thread>
 
 using namespace std;
 
 void map(string mapname);
-void mapSolutions(string solution);
+//void mapSolutions(string solution);
 void gameLoop();
 void map();
 void checkWin();
@@ -19,11 +20,13 @@ int startingX = 0;
 int startingY = 0;
 string oldSpace = " ";
 bool active = true;
+int cableUsed = 0;
 
 int main() {
 
-    cout << "This is a circuit game, you must move your icon (@) across the map using W A S D. \n"
+    cout << "This is a circuit/mase game, you must move your icon (@) across the map using W A S D. And J for changing the empty spaces to a cable\n"
         << "You must connect the I (input/start) to the O (output/end) by changing the empty spaces (shown as dashes -) to 'c' (for cable)\n"
+        << "\nTo Win you must be on the 'O' sqaur\n"
         << "\n\nKey:\n"
         << "@ = Player icon denoting the current position\n"
         << "- = Empty space waiting to be changed to cable\n"
@@ -39,23 +42,23 @@ int main() {
 
     switch (choice) {
     case 1:
-        mapSolutions("map01_solved");
+        //mapSolutions("map01_solved");
         map("map01.txt");
         break;
     case 2:
-        mapSolutions("map02_solved");
+        //mapSolutions("map02_solved");
         map("map02.txt");
         break;
     case 3:
-        mapSolutions("map03_solved");
+        //mapSolutions("map03_solved");
         map("map03.txt");
         break;
     case 4:
-        mapSolutions("map04_solved");
+        //mapSolutions("map04_solved");
         map("map04.txt");
         break;
     case 5:
-        mapSolutions("map05_solved");
+        //mapSolutions("map05_solved");
         map("map05.txt");
         break;
 
@@ -104,7 +107,7 @@ void map(string mapname) {
 
     
 }
-
+/*
 void mapSolutions(string solution) {
 
     string myText;
@@ -138,7 +141,7 @@ void mapSolutions(string solution) {
 
 
 }
-
+*/
 void map() {
 
     for (int i = 0; i < 13; i++) { //13 as it is currently the longest map in the y axis
@@ -163,11 +166,11 @@ void checkWin() {
 
     int checkY = startingY;
     int checkX = startingX;
-    bool won = false;
+    int won = 0;
     string oldPos = "nothing";
     
     
-    while (won != true) {
+    while (won != 50) {
         if (board[checkY][checkX + 1] == "I" || board[checkY][checkX - 1] == "I" || board[checkY + 1][checkX] == "I" || board[checkY - 1][checkX] == "I") {
             active = true;
             won = true;
@@ -193,7 +196,7 @@ void checkWin() {
             cout << "y++";
             oldPos = "down";
         }
-
+        won++;
     }
     
 
@@ -204,7 +207,34 @@ void leaderBoard() {
     string input;
 
     cout << "You win\n\n"
-        << "play again?\t";
+        << "Amount of cable used: " << cableUsed;
+    
+    
+    ofstream myfile;
+    myfile.open("leaderboard.txt", ofstream::app);
+    string name;
+    cout << "\n\nplease give your name: ";
+    cin >> name;
+    myfile << "\n" << name << " : " << cableUsed;
+    myfile.close();
+
+
+        
+    string myText;
+
+    ifstream MyReadFile("leaderboard.txt");
+
+    for (int i = 0; i < 10; i++) { //show the 10 on the leaderboard
+
+        getline(MyReadFile, myText);
+        cout <<myText << "\n";
+    }
+
+    MyReadFile.close();
+    
+    
+    
+    cout << "\n\nplay again?\t";
     cin >> input;
     if (input == "yes") {
         main();
@@ -219,6 +249,7 @@ void gameLoop() {
 
     int currentX = startingX;
     int currentY = startingY;
+    cableUsed = 0;
     
     oldSpace = board[currentY][currentX];
 
@@ -244,6 +275,7 @@ void gameLoop() {
             board[currentY][currentX] = oldSpace;
             oldSpace = "c";
             board[currentY][currentX] = "@";
+            cableUsed++;
         }
         else if (move == 'w' && board[currentY - 1][currentX] != "#") {
             board[currentY][currentX] = oldSpace;

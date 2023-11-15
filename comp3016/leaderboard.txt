@@ -1,0 +1,5 @@
+test : 100
+jame : 80
+dave : 40
+ben : 4
+james : 4
