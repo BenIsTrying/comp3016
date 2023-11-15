@@ -71,7 +71,7 @@ int choice = 0;
     }
 ```
 
-This code is getting and allocating the map to the array, it trys to allocate and if any errors occure then it trys reloading the function.
+2. This code is getting and allocating the map to the array, it trys to allocate and if any errors occure then it trys reloading the function.
 
 ```
 try {
