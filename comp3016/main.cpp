@@ -11,6 +11,7 @@ void mapSolutions(string solution);
 void gameLoop();
 void map();
 void checkWin();
+void leaderBoard();
 
 int mapLength = 0;
 string board[100][100];
@@ -139,28 +140,6 @@ void mapSolutions(string solution) {
 
 }
 
-void checkWin() {
-
-    for (int i = 0; i < 13; i++) { //13 as it is currently the longest map in the y axis
-
-        int num = 0;
-
-        while (num < 40) {
-            if (board == solvedBoard) {
-                cout << "\n\n\n\n\n\n\n\nYou win!!!";
-                active = false;
-                break;
-            }
-            else
-            
-            num++;
-        }
-    }
-
-
-
-}
-
 void map() {
 
     for (int i = 0; i < 13; i++) { //13 as it is currently the longest map in the y axis
@@ -180,6 +159,61 @@ void map() {
     }
     
     
+}
+void checkWin() {
+
+    int checkY = startingY;
+    int checkX = startingX;
+    bool won = false;
+    string oldPos = "nothing";
+    
+    
+    while (won != true) {
+        if (board[checkY][checkX + 1] == "I" || board[checkY][checkX - 1] == "I" || board[checkY + 1][checkX] == "I" || board[checkY - 1][checkX] == "I") {
+            active = true;
+            won = true;
+            leaderBoard();
+        }
+        else if (board[checkY][checkX + 1] == "c" && oldPos != "right") {
+            checkX++;
+            cout << "x++";
+            oldPos = "right";
+        }
+        else if (board[checkY][checkX - 1] == "c" && oldPos != "left") {
+            checkX--;
+            cout << "x--";
+            oldPos = "left";
+        }
+        else if (board[checkY - 1][checkX] == "c" && oldPos != "up") {
+            checkY--;
+            cout << "y--";
+            oldPos = "up";
+        }
+        else if (board[checkY + 1][checkX] == "c" && oldPos != "down") {
+            checkY++;
+            cout << "y++";
+            oldPos = "down";
+        }
+
+    }
+    
+
+}
+void leaderBoard() {
+    system("cls");
+
+    string input;
+
+    cout << "You win\n\n"
+        << "play again?\t";
+    cin >> input;
+    if (input == "yes") {
+        main();
+    }
+    else {
+        cout << "goodbye";
+    }
+
 }
 
 void gameLoop() {
@@ -207,7 +241,7 @@ void gameLoop() {
         move = _getch();
 
         move = tolower(move);
-        if ((move == 'j' && board[currentY][currentX] != "I") || (move == 'j' && board[currentY][currentX] != "O") || (move == 'j' && board[currentY][currentX] != "#")) {
+        if ((move == 'j' && board[currentY][currentX] != "I") && (move == 'j' && board[currentY][currentX] != "O") && (move == 'j' && board[currentY][currentX] != "#")) {
             board[currentY][currentX] = oldSpace;
             oldSpace = "c";
             board[currentY][currentX] = "@";
@@ -236,8 +270,9 @@ void gameLoop() {
             oldSpace = board[currentY][currentX];
             board[currentY][currentX] = "@";
         }
-        
-        checkWin();
+        if (oldSpace == "O"){
+            checkWin();
+        }
     }
 
 }
