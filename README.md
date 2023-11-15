@@ -31,8 +31,20 @@ The users task is to get from **I** to **O** with the least amount of **C** cabl
 
 ## Further details that help us to understand how your prototype works. 
 
+The way this project works is by reading exsternal text files that hold the data for the maps, this is then read and stored into an 2D array called board (this array size is 100 by 100) this is how the game is worked and used, the user controlls an icon **'@'** which starts by takin gthe postion of **I** on the board and manitpulating the **X** and **Y** values to move across the board.
+
+```
+ else if (move == 'w' && board[currentY - 1][currentX] != "#") {
+            board[currentY][currentX] = oldSpace;
+            currentY--; 
+            oldSpace = board[currentY][currentX];
+            board[currentY][currentX] = "@";
+        }
+```
+This code above shows how the user can press the **'W'** key to move upwards on the board, once pressed it will minus from the Y value to move up a column (it has to be minus as Y value starts at zero when printing the top of the map). 
+
 ## A link to the Video (unlisted YouTube) 
 
 ## link to the game git repository
 
-
+https://github.com/BenIsTrying/comp3016.git
