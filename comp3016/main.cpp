@@ -207,7 +207,7 @@ void leaderBoard() {
     cin >> input;
     if (input != "yes") {
         cout << "goodbye";
-        return;
+        exit(0);
     }
     else {
         main();
