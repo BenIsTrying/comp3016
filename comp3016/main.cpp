@@ -203,13 +203,13 @@ void leaderBoard() {
     
     
     
-    cout << "\n\nplay again?\t";
+    cout << "\n\nPlay again? (yes/no)\t";
     cin >> input;
     if (input != "yes") {
-        cout << "goodbye";
+        cout << "goodbye\n\n\n\n";
         exit(0);
     }
-    else {
+    else if (input == "yes") {
         main();
     }
 
