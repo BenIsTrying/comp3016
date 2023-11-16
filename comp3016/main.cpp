@@ -5,6 +5,7 @@
 #include <conio.h>
 #include <thread>
 
+
 using namespace std;
 
 void map(string mapname);
@@ -13,13 +14,22 @@ void map();
 void checkWin();
 void leaderBoard();
 
-int mapLength = 0;
+
+
+bool active = true;
+int cableUsed = 0;
+
+class boardClass {
+
+public://this is where all data with the board is stored/from.
 string board[100][100];
+int mapLength = 0;
 int startingX = 0;
 int startingY = 0;
 string oldSpace = " ";
-bool active = true;
-int cableUsed = 0;
+
+};
+boardClass myObj;
 
 int main() {
 
@@ -95,8 +105,8 @@ void map(string mapname) {
             //cout << "\n" << temp[0] << temp.length() << "\n";
 
             while (num < temp.length()) {
-                board[i][num] = temp[num];
-                cout << board[i][num];
+                myObj.board[i][num] = temp[num];
+                cout << myObj.board[i][num];
                 num++;
             }
             cout << "\n";
@@ -118,12 +128,12 @@ void map() {
         int num = 0;
 
         while (num < 40) {
-            if (board[i][num] == "I") {
-                startingX = num;
-                startingY = i;
+            if (myObj.board[i][num] == "I") {
+                myObj.startingX = num;
+                myObj.startingY = i;
             }
 
-            cout << board[i][num] << " ";
+            cout << myObj.board[i][num] << " ";
             num++;
         }
         cout << "\n";
@@ -133,34 +143,34 @@ void map() {
 }
 void checkWin() {
 
-    int checkY = startingY;
-    int checkX = startingX;
+    int checkY = myObj.startingY;
+    int checkX = myObj.startingX;
     int won = 0;
     string oldPos = "nothing";
     
     
     while (won != 50) {
-        if (board[checkY][checkX + 1] == "I" || board[checkY][checkX - 1] == "I" || board[checkY + 1][checkX] == "I" || board[checkY - 1][checkX] == "I") {
+        if (myObj.board[checkY][checkX + 1] == "I" || myObj.board[checkY][checkX - 1] == "I" || myObj.board[checkY + 1][checkX] == "I" || myObj.board[checkY - 1][checkX] == "I") {
             active = true;
             won = true;
             leaderBoard();
         }
-        else if (board[checkY][checkX + 1] == "c" && oldPos != "right") {
+        else if (myObj.board[checkY][checkX + 1] == "c" && oldPos != "right") {
             checkX++;
             cout << "x++";
             oldPos = "right";
         }
-        else if (board[checkY][checkX - 1] == "c" && oldPos != "left") {
+        else if (myObj.board[checkY][checkX - 1] == "c" && oldPos != "left") {
             checkX--;
             cout << "x--";
             oldPos = "left";
         }
-        else if (board[checkY - 1][checkX] == "c" && oldPos != "up") {
+        else if (myObj.board[checkY - 1][checkX] == "c" && oldPos != "up") {
             checkY--;
             cout << "y--";
             oldPos = "up";
         }
-        else if (board[checkY + 1][checkX] == "c" && oldPos != "down") {
+        else if (myObj.board[checkY + 1][checkX] == "c" && oldPos != "down") {
             checkY++;
             cout << "y++";
             oldPos = "down";
@@ -217,11 +227,11 @@ void leaderBoard() {
 
 void gameLoop() {
 
-    int currentX = startingX;
-    int currentY = startingY;
+    int currentX = myObj.startingX;
+    int currentY = myObj.startingY;
     cableUsed = 0;
     
-    oldSpace = board[currentY][currentX];
+    myObj.oldSpace = myObj.board[currentY][currentX];
 
     while (active != false) {
 
@@ -230,48 +240,48 @@ void gameLoop() {
         cout << "\ntime to play" << "\n\n";
 
         cout << "\nPos: " << currentX << " " << currentY;
-        if (board[currentY][currentX] != "@") {
-            oldSpace = board[currentY][currentX];
+        if (myObj.board[currentY][currentX] != "@") {
+            myObj.oldSpace = myObj.board[currentY][currentX];
         }
-        board[currentY][currentX] = "@";
+        myObj.board[currentY][currentX] = "@";
 
-        cout << "\n\n\n\nCurrent sqaur -> " << oldSpace << "\n\n\n\n\n\n";
+        cout << "\n\n\n\nCurrent sqaur -> " << myObj.oldSpace << "\n\n\n\n\n\n";
 
         char move;
         move = _getch();
 
         move = tolower(move);
-        if ((move == 'j') && (oldSpace != "I") && (oldSpace != "O") && (oldSpace != "#")) {
-            board[currentY][currentX] = oldSpace;
-            oldSpace = "c";
-            board[currentY][currentX] = "@";
+        if ((move == 'j') && (myObj.oldSpace != "I") && (myObj.oldSpace != "O") && (myObj.oldSpace != "#")) {
+            myObj.board[currentY][currentX] = myObj.oldSpace;
+            myObj.oldSpace = "c";
+            myObj.board[currentY][currentX] = "@";
             cableUsed++;
         }
-        else if (move == 'w' && board[currentY - 1][currentX] != "#") {
-            board[currentY][currentX] = oldSpace;
+        else if (move == 'w' && myObj.board[currentY - 1][currentX] != "#") {
+            myObj.board[currentY][currentX] = myObj.oldSpace;
             currentY--; 
-            oldSpace = board[currentY][currentX];
-            board[currentY][currentX] = "@";
+            myObj.oldSpace = myObj.board[currentY][currentX];
+            myObj.board[currentY][currentX] = "@";
         }
-        else if (move == 'a' && board[currentY][currentX - 1] != "#") {
-            board[currentY][currentX] = oldSpace;
+        else if (move == 'a' && myObj.board[currentY][currentX - 1] != "#") {
+            myObj.board[currentY][currentX] = myObj.oldSpace;
             currentX--;
-            oldSpace = board[currentY][currentX];
-            board[currentY][currentX] = "@";
+            myObj.oldSpace = myObj.board[currentY][currentX];
+            myObj.board[currentY][currentX] = "@";
         }
-        else if (move == 's' && board[currentY + 1][currentX] != "#") {
-            board[currentY][currentX] = oldSpace;
+        else if (move == 's' && myObj.board[currentY + 1][currentX] != "#") {
+            myObj.board[currentY][currentX] = myObj.oldSpace;
             currentY++;
-            oldSpace = board[currentY][currentX];
-            board[currentY][currentX] = "@";
+            myObj.oldSpace = myObj.board[currentY][currentX];
+            myObj.board[currentY][currentX] = "@";
         }
-        else if (move == 'd' && board[currentY][currentX + 1] != "#") {
-            board[currentY][currentX] = oldSpace;
+        else if (move == 'd' && myObj.board[currentY][currentX + 1] != "#") {
+            myObj.board[currentY][currentX] = myObj.oldSpace;
             currentX++;
-            oldSpace = board[currentY][currentX];
-            board[currentY][currentX] = "@";
+            myObj.oldSpace = myObj.board[currentY][currentX];
+            myObj.board[currentY][currentX] = "@";
         }
-        if (oldSpace == "O"){
+        if (myObj.oldSpace == "O"){
             checkWin();
         }
     }
